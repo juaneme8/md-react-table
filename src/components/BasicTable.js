@@ -13,7 +13,7 @@ export const BasicTable = () => {
 		data,
 	});
 
-	const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = tableInstance;
+	const { getTableProps, getTableBodyProps, headerGroups, footerGroups, rows, prepareRow } = tableInstance;
 
 	// headerGroups es un array que hace referencia a grupos de headers, en este caso no hemos agrupado columnas por lo que cada columna pertenece a su propio grupo.
 	// Luego accedemos a los headers de cada grupo y luego a cada columna
@@ -40,6 +40,15 @@ export const BasicTable = () => {
 					);
 				})}
 			</tbody>
+			<tfoot>
+				{footerGroups.map(footerGroup => (
+					<tr {...footerGroup.getFooterGroupProps()}>
+						{footerGroup.headers.map(column => (
+							<td {...column.getFooterProps()}>{column.render('Footer')}</td>
+						))}
+					</tr>
+				))}
+			</tfoot>
 		</table>
 	);
 };
